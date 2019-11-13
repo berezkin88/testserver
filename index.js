@@ -24,7 +24,7 @@ app.use("/", router);
 
 app.listen(port, (err) => {
   if (err) {
-    return console.log('Error occured: ', err);
+    return console.log(`Error occured: ${err}`);
   }
 
   console.log(`server is listening on ${port}`);
