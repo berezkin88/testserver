@@ -1,6 +1,6 @@
 {
   "name": "testserver",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "simple server for mocking API",
   "main": "index.js",
   "scripts": {
