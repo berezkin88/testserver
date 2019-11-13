@@ -1,6 +1,6 @@
 # packages
 node_modules
-resources
+resources/static/*
 
 # files
 package-lock.json

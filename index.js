@@ -8,6 +8,7 @@ router.get("/", (request, response) => {
     response.sendFile(path.join(__dirname + "/index.html"));
 });
 
+// custom APIs
 router.get("/logout", (request, response) => {
     response.sendFile(path.join(__dirname + "/resources/static/index.html"));
 });
@@ -16,6 +17,7 @@ router.get("/v1/aspsps", (request, response) => {
     response.sendFile(path.join(__dirname + "/resources/responses/searchEmpty.json"));
 });
 
+// router for static libraries e.g. css, js, etc.
 app.use(express.static(__dirname + '/resources/static'));
 
 app.use("/", router);
