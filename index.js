@@ -4,17 +4,26 @@ const port = 3001;
 const path = require("path");
 const router = express.Router();
 
-router.get("/", (request, response) => {
-    response.sendFile(path.join(__dirname + "/index.html"));
-});
-
 // custom APIs
 router.get("/logout", (request, response) => {
-    response.sendFile(path.join(__dirname + "/resources/static/index.html"));
+    response.set({status: "Logged out"}).redirect("back");
 });
 
 router.get("/v1/aspsps", (request, response) => {
-    response.sendFile(path.join(__dirname + "/resources/responses/searchEmpty.json"));
+    response.set("X-Total-Elements", "22");
+    response.sendFile(path.join(__dirname + "/resources/responses/search.json"));
+});
+
+router.get("/v1/aspsps/csv/download", (request, response) => {
+    response.download(path.join(__dirname + "/resources/responses/download.csv"));
+});
+
+router.post("/v1/aspsps/csv/merge", (request, response) => {
+    response.status(200).end();
+});
+
+router.post("/v1/aspsps/csv/upload", (request, response) => {
+    response.status(200).end();
 });
 
 // router for static libraries e.g. css, js, etc.

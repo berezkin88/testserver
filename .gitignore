@@ -4,5 +4,6 @@ resources/static/*
 
 # files
 package-lock.json
-30ObjList.csv
+download.csv
 .DS_Store
+search.json
