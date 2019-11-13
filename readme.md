@@ -8,7 +8,7 @@ Usage:
 
 Open the server repository on a local machine.
 
-Install dependancies:
+Install dependencies:
 ```
 npm i
 ```
