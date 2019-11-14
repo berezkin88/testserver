@@ -6,4 +6,6 @@ resources/static/*
 package-lock.json
 download.csv
 .DS_Store
-search.json
+search0x.json
+search1x.json
+search2x.json
