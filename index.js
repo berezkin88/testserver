@@ -4,6 +4,9 @@ const port = 3001;
 const path = require("path");
 const router = express.Router();
 
+const BASE = "/v1/aspsps";
+const BASE_CSV = BASE + "/csv";
+
 // custom APIs
 router.get("/logout", async (request, response) => {
     response.set({ status: "Logged out" }).redirect("back");
@@ -22,19 +25,19 @@ router.get("/v1/aspsps/", (request, response) => {
     }
 });
 
-router.get("/v1/aspsps/csv/download", (request, response) => {
+router.get(BASE_CSV + "/download", (request, response) => {
     response.download(path.join(__dirname + "/resources/responses/download.csv"));
 });
 
-router.post("/v1/aspsps/csv/merge", (request, response) => {
+router.post(BASE_CSV + "/merge", (request, response) => {
     response.sendStatus(200);
 });
 
-router.post("/v1/aspsps/csv/upload", (request, response) => {
+router.post(BASE_CSV + "/upload", (request, response) => {
     response.sendStatus(200);
 });
 
-router.post("/v1/aspsps", (request, response) => {
+router.post(BASE, (request, response) => {
     if (!request.body) {
         response.sendStatus(400);
     } else {
@@ -42,7 +45,7 @@ router.post("/v1/aspsps", (request, response) => {
     }
 });
 
-router.put("/v1/aspsps", (request, response) => {
+router.put(BASE, (request, response) => {
     if (!request.body) {
         response.sendStatus(400);
     } else {
@@ -50,12 +53,16 @@ router.put("/v1/aspsps", (request, response) => {
     }
 });
 
-router.delete("/v1/aspsps/:id", (request, response) => {
+router.delete(BASE + "/:id", (request, response) => {
     if (!request.params.id) {
         response.sendStatus(400);
     } else {
         response.sendStatus(204);
     }
+});
+
+router.get(BASE + "/count", (request, response) => {
+    response.send("2000");
 });
 
 // router.post("/v1/aspsps/csv/merge", (request, response) => {
@@ -84,6 +91,7 @@ router.delete("/v1/aspsps/:id", (request, response) => {
 
 // router for static libraries e.g. css, js, etc.
 app.use(express.static(__dirname + '/resources/static'));
+app.use(express.json());
 
 app.use("/", router);
 

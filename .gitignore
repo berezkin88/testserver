@@ -1,6 +1,7 @@
 # packages
 node_modules
 resources/static/*
+.vscode
 
 # files
 package-lock.json
