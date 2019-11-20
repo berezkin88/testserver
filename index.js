@@ -39,14 +39,16 @@ router.post(BASE_CSV + "/upload", (request, response) => {
 
 router.post(BASE, (request, response) => {
     if (!request.body) {
+        console.err("request has no body");
         response.sendStatus(400);
     } else {
-        response.sendStatus(201);
+        response.status(201).sendFile(path.join(__dirname + "/resources/responses/saveResponse.json"));
     }
 });
 
 router.put(BASE, (request, response) => {
     if (!request.body) {
+        console.err("request has no body");
         response.sendStatus(400);
     } else {
         response.sendStatus(202);
@@ -55,6 +57,7 @@ router.put(BASE, (request, response) => {
 
 router.delete(BASE + "/:id", (request, response) => {
     if (!request.params.id) {
+        console.err("request has no id");
         response.sendStatus(400);
     } else {
         response.sendStatus(204);
@@ -64,6 +67,15 @@ router.delete(BASE + "/:id", (request, response) => {
 router.get(BASE + "/count", (request, response) => {
     response.send("2000");
 });
+
+router.post(BASE_CSV + "/validate", (request, response) => {
+    if (!request.body) {
+        console.err("request has no body");
+        response.sendStatus(404);
+    } else {
+        response.status(400).sendFile(path.join(__dirname + "/resources/responses/validationResponse.json"));
+    }
+})
 
 // router.post("/v1/aspsps/csv/merge", (request, response) => {
 //     response.sendStatus(403);
