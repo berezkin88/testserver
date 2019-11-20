@@ -10,5 +10,6 @@ download.csv
 search0x.json
 search1x.json
 search2x.json
-validationResponse.json
+validationResponseNotValid.json
+validationResponseValid.json
 saveResponse.json

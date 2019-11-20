@@ -73,7 +73,9 @@ router.post(BASE_CSV + "/validate", (request, response) => {
         console.err("request has no body");
         response.sendStatus(404);
     } else {
-        response.status(400).sendFile(path.join(__dirname + "/resources/responses/validationResponse.json"));
+        setTimeout(() => {
+            response.status(200).sendFile(path.join(__dirname + "/resources/responses/validationResponseNotValid.json"));
+        }, 3000)
     }
 })
 
