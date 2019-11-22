@@ -68,13 +68,24 @@ router.get(BASE + "/count", (request, response) => {
     response.send("2000");
 });
 
-router.post(BASE_CSV + "/validate", (request, response) => {
+router.post(BASE_CSV + "/validate/upload", (request, response) => {
     if (!request.body) {
         console.err("request has no body");
         response.sendStatus(404);
     } else {
         setTimeout(() => {
-            response.status(200).sendFile(path.join(__dirname + "/resources/responses/validationResponseNotValid.json"));
+            response.status(200).sendFile(path.join(__dirname + "/resources/responses/validationResponseUploadValid.json"));
+        }, 3000)
+    }
+})
+
+router.post(BASE_CSV + "/validate/merge", (request, response) => {
+    if (!request.body) {
+        console.err("request has no body");
+        response.sendStatus(404);
+    } else {
+        setTimeout(() => {
+            response.status(400).sendFile(path.join(__dirname + "/resources/responses/validationResponseMergeNotValid.json"));
         }, 3000)
     }
 })
