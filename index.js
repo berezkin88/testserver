@@ -39,7 +39,7 @@ router.post(BASE_CSV + "/upload", (request, response) => {
 
 router.post(BASE, (request, response) => {
     if (!request.body) {
-        console.err("request has no body");
+        console.log("request has no body");
         response.sendStatus(400);
     } else {
         response.status(201).sendFile(path.join(__dirname + "/resources/responses/saveResponse.json"));
@@ -48,7 +48,7 @@ router.post(BASE, (request, response) => {
 
 router.put(BASE, (request, response) => {
     if (!request.body) {
-        console.err("request has no body");
+        console.log("request has no body");
         response.sendStatus(400);
     } else {
         response.sendStatus(202);
@@ -56,12 +56,12 @@ router.put(BASE, (request, response) => {
 });
 
 router.delete(BASE + "/:id", (request, response) => {
-    if (!request.params.id) {
-        console.err("request has no id");
-        response.sendStatus(400);
-    } else {
-        response.sendStatus(204);
-    }
+    response.sendStatus(204);
+});
+
+router.delete(BASE, (request, response) => {
+    console.log("request has no id");
+    response.sendStatus(400);
 });
 
 router.get(BASE + "/count", (request, response) => {
@@ -70,7 +70,7 @@ router.get(BASE + "/count", (request, response) => {
 
 router.post(BASE_CSV + "/validate/upload", (request, response) => {
     if (!request.body) {
-        console.err("request has no body");
+        console.log("request has no body");
         response.sendStatus(404);
     } else {
         setTimeout(() => {
@@ -81,7 +81,7 @@ router.post(BASE_CSV + "/validate/upload", (request, response) => {
 
 router.post(BASE_CSV + "/validate/merge", (request, response) => {
     if (!request.body) {
-        console.err("request has no body");
+        console.log("request has no body");
         response.sendStatus(404);
     } else {
         setTimeout(() => {
