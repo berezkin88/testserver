@@ -26,15 +26,21 @@ router.get("/v1/aspsps/", (request, response) => {
 });
 
 router.get(BASE_CSV + "/download", (request, response) => {
-    response.download(path.join(__dirname + "/resources/responses/download.csv"));
+    setTimeout(() => {
+        response.download(path.join(__dirname + "/resources/responses/download.csv"));
+    }, 2000);
 });
 
 router.post(BASE_CSV + "/merge", (request, response) => {
-    response.sendStatus(200);
+    setTimeout(() => {
+        response.sendStatus(500);
+    }, 2000);
 });
 
 router.post(BASE_CSV + "/upload", (request, response) => {
-    response.sendStatus(200);
+    setTimeout(() => {
+        response.sendStatus(200);
+    }, 2000);
 });
 
 router.post(BASE, (request, response) => {
