@@ -52,6 +52,15 @@ router.post(BASE, (request, response) => {
     }
 });
 
+router.post(BASE + "/validate", (request, response) => {
+    if (!request.body) {
+        console.log("request has no body");
+        response.sendStatus(400);
+    } else {
+        response.status(201).send("false");
+    }
+});
+
 router.put(BASE, (request, response) => {
     if (!request.body) {
         console.log("request has no body");
