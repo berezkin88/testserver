@@ -1,0 +1,5 @@
+<ams:fault xmlns:ams="http://wso2.org/apimanager/security">
+    <ams:code>900902</ams:code>
+    <ams:message>Missing Credentials</ams:message>
+    <ams:description>Required OAuth credentials not provided. Make sure your API invocation call has a header: "Authorization: Bearer ACCESS_TOKEN"</ams:description>
+</ams:fault>
