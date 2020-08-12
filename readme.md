@@ -16,7 +16,7 @@ npm i
 Start server:
 
  ```
- npm run start
+ npm start
  ``` 
 
 
