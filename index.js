@@ -1,9 +1,9 @@
+const { response } = require('express');
 const express = require('express');
 const app = express();
 const port = 3001;
 const path = require("path");
 const router = express.Router();
-const req = require("request");
 
 const BASE = "/v1/aspsps";
 const BASE_CSV = BASE + "/csv";
@@ -146,14 +146,15 @@ router.get("/aspsp", (request, response) => {
 // });
 
 router.post("/aspsp/v1/consents", (request, response) => {
+    failed(response);
 
-    if (counter < 1) {
-        failed(response);
-        counter++;
-    } else {
-        success(response);
-        counter = 0;
-    }
+    // if (counter < 1) {
+    //     failed(response);
+    //     counter++;
+    // } else {
+    //     success(response);
+    //     counter = 0;
+    // }
 });
 
 router.get("/aspsp/v1/payments/sepa-credit-transfers/:id/status", (request, response) => {
@@ -180,7 +181,7 @@ const successStatus = (response) => {
 const failed = (response) => {
     console.log("failed");
     return response
-        .status(500)
+        .status(501)
         .set({ 'Content-Type': 'application/json;charset=UTF-8' })
         .send({
             tppMessage: [{
@@ -266,6 +267,33 @@ router.post("/aspsp/idp", (request, response) => {
     });
 });
 
+// Embedded pre-step
+
+router.post('/token', (request, response) => {
+    console.log("embedded pre-step. post TPP token request");
+
+    if (!request.header("Authorization")) {
+        return response.status(403).send("Request missing Authorization parameter");
+    }
+
+    return response
+    .status(200)
+    .sendFile(path.join(__dirname + "/resources/responses/getTPPTokenEmbeddedOAuthResponse.json"));
+})
+
+router.post('/pre-auth/1.0.5/psd2-auth/v1/auth/token', (request, response) => {
+    console.log("embedded pre-step. post PSD2 token request");
+
+    if (!request.header("Authorization")
+        && request.header("Authorization") === "Bearer 6c222c7e-5b4d-4ea4-a588-84646403422c") {
+        return response.status(403).send("Request missing Authorization parameter");
+    }
+
+    return response
+    .status(201)
+    .sendFile(path.join(__dirname + "/resources/responses/getPSD2TokenEmbeddedOAuthResponse.json"));
+})
+
 // router for static libraries e.g. css, js, etc.
 app.use(express.static(__dirname + '/resources/static'));
 app.use(express.json());
@@ -274,7 +302,7 @@ app.use("/", router);
 
 app.listen(port, (err) => {
     if (err) {
-        return console.log(`Error occured: ${err}`);
+        return console.log(`Error occurred: ${err}`);
     }
 
     console.log(`server is listening on ${port}`);

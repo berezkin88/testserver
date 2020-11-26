@@ -13,3 +13,6 @@ search2x.json
 validationResponseMergeNotValid.json
 validationResponseUploadValid.json
 saveResponse.json
+xmlResponse.xml
+getPSD2TokenEmbeddedOAuthResponse.json
+getTPPTokenEmbeddedOAuthResponse.json
