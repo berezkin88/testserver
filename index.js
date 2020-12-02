@@ -267,6 +267,7 @@ router.post("/aspsp/idp", (request, response) => {
     });
 });
 
+// DKB mock
 // Embedded pre-step
 
 router.post('/token', (request, response) => {
@@ -285,7 +286,7 @@ router.post('/pre-auth/1.0.5/psd2-auth/v1/auth/token', (request, response) => {
     console.log("embedded pre-step. post PSD2 token request");
 
     if (!request.header("Authorization")
-        && request.header("Authorization") === "Bearer 6c222c7e-5b4d-4ea4-a588-84646403422c") {
+        && request.header("Authorization") !== "Bearer 6c222c7e-5b4d-4ea4-a588-84646403422c") {
         return response.status(403).send("Request missing Authorization parameter");
     }
 
@@ -293,6 +294,70 @@ router.post('/pre-auth/1.0.5/psd2-auth/v1/auth/token', (request, response) => {
     .status(201)
     .sendFile(path.join(__dirname + "/resources/responses/getPSD2TokenEmbeddedOAuthResponse.json"));
 })
+
+// End of Embedded PreStep
+
+router.post("/v1/consents", (request, response) => {
+    console.log("DKB, post Consents");
+
+    // if ((!request.header("Authorization")
+    //         && request.header("Authorization") !== "Bearer 6c222c7e-5b4d-4ea4-a588-84646403422c")
+    //     /*|| (!request.header("PSD2-AUTHORIZATION")
+    //         && request.header("PSD2-AUTHORIZATION") !== "Bearer 5BAA61E4C9B93F3F0682250B6CF8331B7EE68FD8")*/) {
+    //     return response.status(403).send("Request missing Authorization parameter");
+    // }
+
+    return response
+    .status(201)
+    .sendFile(path.join(__dirname + "/resources/responses/DKBCreateConsent.json"));
+});
+
+router.post("/v1/consents/:consentId/authorisations", (request, response) => {
+    console.log("DKB, post start Authorisation");
+
+    // if ((!request.header("Authorization")
+    //         && request.header("Authorization") !== "Bearer 6c222c7e-5b4d-4ea4-a588-84646403422c")
+    //     /*|| (!request.header("PSD2-AUTHORIZATION")
+    //         && request.header("PSD2-AUTHORIZATION") !== "Bearer 5BAA61E4C9B93F3F0682250B6CF8331B7EE68FD8")*/) {
+    //     return response.status(403).send("Request missing Authorization parameter");
+    // }
+
+    return response
+    .status(201)
+    .sendFile(path.join(__dirname + "/resources/responses/DKBstartPsuResponse.json"));
+});
+
+router.post("/v1/:paymentService/:paymentProduct", (request, response) => {
+    console.log("DKB, post Initiate Payment");
+
+    // if ((!request.header("Authorization")
+    //         && request.header("Authorization") !== "Bearer 6c222c7e-5b4d-4ea4-a588-84646403422c")
+    //     /*|| (!request.header("PSD2-AUTHORIZATION")
+    //         && request.header("PSD2-AUTHORIZATION") !== "Bearer 5BAA61E4C9B93F3F0682250B6CF8331B7EE68FD8")*/) {
+    //     return response.status(403).send("Request missing Authorization parameter");
+    // }
+
+    return response
+    .status(201)
+    .sendFile(path.join(__dirname + "/resources/responses/DKBInitiatePayment.json"));
+});
+
+router.post("/v1/:paymentService/:paymentProduct/:paymentId/authorisations", (request, response) => {
+    console.log("DKB, post start Authorisation");
+
+    // if ((!request.header("Authorization")
+    //         && request.header("Authorization") !== "Bearer 6c222c7e-5b4d-4ea4-a588-84646403422c")
+    //     /*|| (!request.header("PSD2-AUTHORIZATION")
+    //         && request.header("PSD2-AUTHORIZATION") !== "Bearer 5BAA61E4C9B93F3F0682250B6CF8331B7EE68FD8")*/) {
+    //     return response.status(403).send("Request missing Authorization parameter");
+    // }
+
+    return response
+    .status(201)
+    .sendFile(path.join(__dirname + "/resources/responses/DKBstartPsuResponse.json"));
+});
+
+// End of DKB mock
 
 // router for static libraries e.g. css, js, etc.
 app.use(express.static(__dirname + '/resources/static'));

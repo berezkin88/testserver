@@ -16,3 +16,6 @@ saveResponse.json
 xmlResponse.xml
 getPSD2TokenEmbeddedOAuthResponse.json
 getTPPTokenEmbeddedOAuthResponse.json
+DKBCreateConsent.json
+DKBInitiatePayment.json
+DKBstartPsuResponse.json
