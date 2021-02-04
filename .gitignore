@@ -19,3 +19,5 @@ getTPPTokenEmbeddedOAuthResponse.json
 DKBCreateConsent.json
 DKBInitiatePayment.json
 DKBstartPsuResponse.json
+DKBAuthoriseTransaction.json
+DKBChooseScaMethod.json
