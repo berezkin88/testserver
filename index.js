@@ -131,30 +131,9 @@ router.post(BASE_CSV + "/validate/merge", (request, response) => {
 //     }
 // });
 
-/* Checking adapter pre-step  */
 router.get("/aspsp", (request, response) => {
     console.log("testing response");
     response.send("OK");
-});
-
-// router.post("/aspsp/v1/consents", (request, response) => {
-//     console.log("failed consent");
-//     response
-//         .status(403)
-//         .set({ 'Content-Type': 'application/xml;charset=UTF-8' })
-//         .sendFile(path.join(__dirname + "/resources/responses/xmlResponse.xml"))
-// });
-
-router.post("/aspsp/v1/consents", (request, response) => {
-    failed(response);
-
-    // if (counter < 1) {
-    //     failed(response);
-    //     counter++;
-    // } else {
-    //     success(response);
-    //     counter = 0;
-    // }
 });
 
 router.get("/aspsp/v1/payments/sepa-credit-transfers/:id/status", (request, response) => {
@@ -189,25 +168,6 @@ const failed = (response) => {
                 code: "SERVER ERROR",
                 text: "Intentionally went wrong"
             }]
-        })
-}
-
-const success = (response) => {
-    console.log("success consent");
-    return response
-        .status(200)
-        .set({ 'Content-Type': 'application/json;charset=UTF-8' })
-        .send({
-            consentStatus: "received",
-            consentId: "LWigcCDnqIju2WxmN2QJiIIwDPJRCi55C92NUPa5IXRNg8JYEtRvNJAdwuefV7G4XcX1qLGcJAusajIQOAZagMz9MpaJIQIH3NJX8IHgetw=_=_psGLvQpt9Q",
-            _links: {
-                scaRedirect: {
-                    href: "localhost:3001/aspsp"
-                },
-                self: {
-                    href: "localhost:3001/aspsp/v1/consents/"
-                }
-            }
         })
 }
 
@@ -383,12 +343,12 @@ router.post("/v1/:paymentService/:paymentProduct", (request, response) => {
 router.post("/v1/:paymentService/:paymentProduct/:paymentId/authorisations", (request, response) => {
     console.log("DKB, post start Authorisation");
 
-    // if ((!request.header("Authorization")
-    //         && request.header("Authorization") !== "Bearer 6c222c7e-5b4d-4ea4-a588-84646403422c")
-    //     /*|| (!request.header("PSD2-AUTHORIZATION")
-    //         && request.header("PSD2-AUTHORIZATION") !== "Bearer 5BAA61E4C9B93F3F0682250B6CF8331B7EE68FD8")*/) {
-    //     return response.status(403).send("Request missing Authorization parameter");
-    // }
+    if ((!request.header("Authorization")
+            && request.header("Authorization") !== "Bearer 6c222c7e-5b4d-4ea4-a588-84646403422c")
+        || (!request.header("PSD2-AUTHORIZATION")
+            && request.header("PSD2-AUTHORIZATION") !== "Bearer 5BAA61E4C9B93F3F0682250B6CF8331B7EE68FD8")) {
+        return response.status(403).send("Request missing Authorization parameter");
+    }
 
     return response
     .status(201)
