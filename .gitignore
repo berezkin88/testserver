@@ -21,3 +21,4 @@ DKBInitiatePayment.json
 DKBstartPsuResponse.json
 DKBAuthoriseTransaction.json
 DKBChooseScaMethod.json
+tpp-pb-password_cert.pem
