@@ -1,6 +1,7 @@
 # packages
 node_modules
 resources/static/*
+resources/responses/*
 .vscode
 
 # files
@@ -21,4 +22,4 @@ DKBInitiatePayment.json
 DKBstartPsuResponse.json
 DKBAuthoriseTransaction.json
 DKBChooseScaMethod.json
-tpp-pb-password_cert.pem
+resources/responses/tpp-pb-password_cert.pem
